@@ -1,7 +1,7 @@
 import { INestApplication } from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from '@app/module';
-import { config } from 'dotenv';
+import { EnvConfigService } from '@config/env/env.service';
 
 class Server {
    private static instance: Server;
@@ -18,7 +18,6 @@ class Server {
    }
 
    private async initializateNestApplication() {
-      config();
       await this.createAppModule();
       await this.listen();
    }
@@ -28,7 +27,9 @@ class Server {
    }
 
    private async listen() {
-      await this.app.listen(process.env.PORT);
+      const envConfigService: EnvConfigService = this.app.get('EnvConfigService');
+
+      await this.app.listen(envConfigService.port);
    }
 }
 
