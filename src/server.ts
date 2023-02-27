@@ -1,6 +1,7 @@
 import { INestApplication } from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from '@app/module';
+import { config } from 'dotenv';
 
 class Server {
    private static instance: Server;
@@ -17,6 +18,7 @@ class Server {
    }
 
    private async initializateNestApplication() {
+      config();
       await this.createAppModule();
       await this.listen();
    }
@@ -26,7 +28,7 @@ class Server {
    }
 
    private async listen() {
-      await this.app.listen(3000);
+      await this.app.listen(process.env.PORT);
    }
 }
 
