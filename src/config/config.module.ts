@@ -1,6 +1,5 @@
-import { forwardRef, Module } from '@nestjs/common';
-import { ConfigModule as NestConfigModule, ConfigService as NestConfigService } from '@nestjs/config';
-import { EnvConfigService } from '@config/env/env.service';
+import { Module } from '@nestjs/common';
+import { ConfigModule as NestConfigModule } from '@nestjs/config';
 import { EnvConfigModule } from '@config/env/env.module';
 import environment from '@config/env/env.provider';
 
@@ -11,9 +10,9 @@ import environment from '@config/env/env.provider';
          isGlobal: true,
          envFilePath: `.env`,
       }),
-      forwardRef(() => EnvConfigModule),
+      EnvConfigModule,
    ],
-   providers: [NestConfigService, EnvConfigService],
-   exports: [NestConfigService, EnvConfigService],
+   providers: [],
+   exports: [EnvConfigModule],
 })
 export class ConfigModule {}

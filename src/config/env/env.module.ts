@@ -1,9 +1,9 @@
-import { forwardRef, Module } from '@nestjs/common';
-import { ConfigModule } from '@config/config.module';
+import { Module } from '@nestjs/common';
+import { ConfigModule as NestConfigModule } from '@nestjs/config';
 import { EnvConfigService } from '@config/env/env.service';
 
 @Module({
-   imports: [forwardRef(() => ConfigModule)],
+   imports: [NestConfigModule],
    providers: [EnvConfigService],
    exports: [EnvConfigService],
 })
