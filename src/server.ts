@@ -1,6 +1,7 @@
 import { INestApplication } from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from '@app/module';
+import { EnvConfigService } from '@config/env/env.service';
 
 class Server {
    private static instance: Server;
@@ -26,7 +27,9 @@ class Server {
    }
 
    private async listen() {
-      await this.app.listen(3000);
+      const envConfigService: EnvConfigService = this.app.get('EnvConfigService');
+
+      await this.app.listen(envConfigService.port);
    }
 }
 

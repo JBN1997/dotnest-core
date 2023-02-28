@@ -1,6 +1,6 @@
 {
   "singleQuote": true,
-  "printWidth": 80,
+  "printWidth": 105,
   "editor.formatOnSave": true,
   "proseWrap": "always",
   "requireConfig": false,

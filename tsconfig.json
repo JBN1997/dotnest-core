@@ -13,6 +13,7 @@
     "paths": {
       "@server": ["src/server"],
       "@app/*": ["src/app.*"],
+      "@config/*": ["src/config/*"],
     },
     "incremental": true,
     "skipLibCheck": true,
