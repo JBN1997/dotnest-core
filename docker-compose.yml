@@ -1,0 +1,42 @@
+version: "3.7"
+networks:
+  default:
+    external:
+      name: dotnestcore
+
+services:
+  dotnestcore:
+    container_name: dotnestcore
+    restart: always
+    build: .
+    environment:
+      - APP_ENV=development
+      - APP_PORT=3000
+    volumes:
+      - ./src:/var/www/dotnestcore/src
+      - ./test:/var/www/dotnestcore/test
+    working_dir: /var/www/dotnestcore
+    ports:
+      - "3000:3000"
+    links:
+      - mysql
+    depends_on:
+      - mysql
+  mysql: # Example Service
+    container_name: dotnestcore_mysql
+    restart: always
+    image: mysql:5.7
+    environment:
+      - MYSQL_ROOT_PASSWORD=root
+      - MYSQL_DATABASE=dotnestcore
+    ports:
+    - "3308:3306"
+    volumes:
+    - dotnestcore_mysql_data:/var/lib/mysql
+volumes:
+  dotnestcore_mysql_data:
+
+networks:
+  default:
+    external:
+      name: dotnestcore

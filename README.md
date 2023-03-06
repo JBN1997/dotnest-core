@@ -58,6 +58,14 @@ $ yarn run test:e2e
 $ yarn run test:cov
 ```
 
+## Docker
+
+Every time you add a new package to your package.json file or make any changes to it or the .env.docker file, please consider rebuilding the docker image using: 
+
+```bash
+docker-compose down && docker-compose up --build
+```
+
 ## Support
 
 Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
