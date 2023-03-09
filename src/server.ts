@@ -1,11 +1,14 @@
-import { INestApplication } from '@nestjs/common';
+import { INestApplication, Logger } from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from '@app/module';
 import { EnvConfigService } from '@config/env/env.service';
+import { HttpExceptionFilter } from 'src/common/exceptions/http.exception';
 
 class Server {
    private static instance: Server;
+
    private app: INestApplication;
+   private readonly logger = new Logger(Server.name);
 
    constructor() {
       this.initializateNestApplication();
@@ -19,6 +22,7 @@ class Server {
 
    private async initializateNestApplication() {
       await this.createAppModule();
+      await this.configureAppModule();
       await this.listen();
    }
 
@@ -26,10 +30,14 @@ class Server {
       this.app = await NestFactory.create(AppModule);
    }
 
-   private async listen() {
-      const envConfigService: EnvConfigService = this.app.get('EnvConfigService');
+   private configureAppModule() {
+      this.app.useGlobalFilters(new HttpExceptionFilter());
+   }
 
+   private async listen() {
+      const envConfigService = this.app.get(EnvConfigService);
       await this.app.listen(envConfigService.port);
+      this.logger.debug(`Application is running on: ${await this.app.getUrl()}`);
    }
 }
 

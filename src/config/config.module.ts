@@ -13,7 +13,7 @@ import db from '@config/db/db.provider';
          envFilePath: `.env`,
       }),
       EnvConfigModule,
-      DataBaseConfigModule
+      DataBaseConfigModule,
    ],
    providers: [],
    exports: [EnvConfigModule, DataBaseConfigModule],
