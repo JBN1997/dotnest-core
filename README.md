@@ -58,6 +58,13 @@ $ yarn run test:e2e
 $ yarn run test:cov
 ```
 
+## Formatting
+
+```base
+# Prettier code formatter
+$ yarn run format
+```
+
 ## Docker
 
 Every time you add a new package to your package.json file or make any changes to it or the .env.docker file, please consider rebuilding the docker image using: 
