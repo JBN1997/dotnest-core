@@ -4,6 +4,7 @@ import { EnvConfigModule } from '@config/env/env.module';
 import { DataBaseConfigModule } from '@config/db/db.module';
 import environment from '@config/env/env.provider';
 import db from '@config/db/db.provider';
+import { EnvConfigService } from './env/env.service';
 
 @Module({
    imports: [
@@ -13,7 +14,7 @@ import db from '@config/db/db.provider';
          envFilePath: `.env`,
       }),
       EnvConfigModule,
-      DataBaseConfigModule
+      DataBaseConfigModule,
    ],
    providers: [],
    exports: [EnvConfigModule, DataBaseConfigModule],

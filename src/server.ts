@@ -27,7 +27,7 @@ class Server {
    }
 
    private async listen() {
-      const envConfigService: EnvConfigService = this.app.get('EnvConfigService');
+      const envConfigService: EnvConfigService = this.app.get(EnvConfigService);
 
       await this.app.listen(envConfigService.port);
    }
