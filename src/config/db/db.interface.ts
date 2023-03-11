@@ -1,3 +1,8 @@
 export interface IDBConfig {
-   hostDB: number;
+   hostDB: string;
+   typeDB: string;
+   portDB: number;
+   usernameDB: string;
+   passwordDB: string;
+   databaseDB: string;
 }
