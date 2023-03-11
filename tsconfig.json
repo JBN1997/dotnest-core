@@ -16,6 +16,7 @@
       "@config/*": ["src/config/*"],
       "@model/*": ["src/model/*"],
       "@entity/*": ["src/entity/*"],
+      "@controller/*": ["src/controller/*"],
       "@exceptions/*": ["src/template/exceptions/*"],
     },
     "incremental": true,
