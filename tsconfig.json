@@ -14,7 +14,8 @@
       "@server": ["src/server"],
       "@app/*": ["src/app.*"],
       "@config/*": ["src/config/*"],
-      "@exceptions/*": ["src/template/exceptions/*"]
+      "@models/users/*": ["src/models/users/*"],
+      "@exceptions/*": ["src/template/exceptions/*"],
     },
     "incremental": true,
     "skipLibCheck": true,
