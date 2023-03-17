@@ -13,6 +13,10 @@ export class UserService {
       protected readonly passwordService: PasswordService,
    ) {}
 
+   async count(): Promise<number> {
+      return await this.userRepository.count();
+   }
+
    async findAll(): Promise<User[]> {
       return await this.userRepository.find();
    }
