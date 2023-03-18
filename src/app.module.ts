@@ -4,9 +4,10 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { UsersModule } from '@models/users/users.module';
 import config from '@config/db/ormconfig';
 import { AuthModule } from './authentication/auth.module';
+import { JobsModule } from '@jobs/job.module';
 
 @Module({
-   imports: [TypeOrmModule.forRoot(config), ConfigModule, UsersModule, AuthModule],
+   imports: [TypeOrmModule.forRoot(config), ConfigModule, UsersModule, AuthModule, JobsModule],
    controllers: [],
    providers: [],
 })

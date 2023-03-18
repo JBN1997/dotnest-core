@@ -16,6 +16,7 @@
       "@config/*": ["src/config/*"],
       "@models/users/*": ["src/models/users/*"],
       "@exceptions/*": ["src/template/exceptions/*"],
+      "@jobs/*": ["src/jobs/*"],
     },
     "incremental": true,
     "skipLibCheck": true,
