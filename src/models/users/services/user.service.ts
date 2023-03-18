@@ -4,36 +4,34 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { User } from '@models/users/entities/user.entity';
 import { CreateUserDto } from '../dto/create-user.dto';
 import { PasswordService } from 'src/authentication/services/password.service';
+import { UserRepository } from '../repositories/user.repository';
 
 @Injectable()
 export class UserService {
    constructor(
-      @InjectRepository(User)
-      protected readonly userRepository: Repository<User>,
+      protected readonly userRepository: UserRepository,
       protected readonly passwordService: PasswordService,
    ) {}
 
    async count(): Promise<number> {
-      return await this.userRepository.count();
+      return await this.userRepository.countAsync();
    }
 
    async findAll(): Promise<User[]> {
-      return await this.userRepository.find();
+      return await this.userRepository.getAllAsync();
    }
 
    async findByUsername(username: string): Promise<User> {
-      return await this.userRepository.findOne({
-         where: { username },
-      });
+      return await this.userRepository.getByAsync({ username });
    }
 
    async createUser(dto: DeepPartial<CreateUserDto>): Promise<User> {
-      const user = await this.userRepository.create();
-      user.username = dto.username;
-      user.email = dto.email;
-      user.password = await this.passwordService.hashPassword(dto.password);
-
-      await this.userRepository.save(user);
+      const hashedPassword = await this.passwordService.hashPassword(dto.password);
+      const user = await this.userRepository.saveAsync({
+         username: dto.username,
+         email: dto.email,
+         password: hashedPassword,
+      });
       return user;
    }
 }
