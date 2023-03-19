@@ -3,7 +3,7 @@ import { UserService } from '@models/users/services/user.service';
 import { Injectable, UnauthorizedException } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { LoginDto } from '../dto/login.dto';
-import { SignInDto } from '../dto/signin.dto';
+import { SigninDto } from '../dto/signin.dto';
 import { PasswordService } from './password.service';
 
 @Injectable()
@@ -29,7 +29,7 @@ export class AuthService {
       };
    }
 
-   async singin(dto: SignInDto): Promise<{ access_token: string }> {
+   async singin(dto: SigninDto): Promise<{ access_token: string }> {
       const user = await this.userService.createUser(dto);
       const payload = { id: user.id, username: user.username };
       return {

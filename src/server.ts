@@ -21,9 +21,7 @@ class Server {
    }
 
    private async initializateNestApplication() {
-      await this.createAppModule();
-      await this.configureAppModule();
-      await this.listen();
+      await Promise.all([this.createAppModule(), this.configureAppModule(), this.listen()]);
    }
 
    private async createAppModule() {
