@@ -3,6 +3,8 @@ import { NestFactory } from '@nestjs/core';
 import { AppModule } from '@app/module';
 import { EnvConfigService } from '@config/env/env.service';
 import { HttpExceptionFilter } from 'src/common/exceptions/http.exception';
+import { ErrorLogger } from '@logger/error/error.logger';
+import { WarnLogger } from '@logger/warn/warn.logger';
 
 class Server {
    private static instance: Server;
@@ -21,7 +23,9 @@ class Server {
    }
 
    private async initializateNestApplication() {
-      await Promise.all([this.createAppModule(), this.configureAppModule(), this.listen()]);
+      await this.createAppModule();
+      await this.configureAppModule();
+      await this.listen();
    }
 
    private async createAppModule() {
@@ -30,6 +34,10 @@ class Server {
 
    private configureAppModule() {
       this.app.useGlobalFilters(new HttpExceptionFilter());
+      this.app.useLogger([
+         this.app.get(ErrorLogger),
+         this.app.get(WarnLogger)
+      ]);
    }
 
    private async listen() {
