@@ -1,10 +1,9 @@
 import { Injectable } from '@nestjs/common';
-import { DeepPartial, Repository } from 'typeorm';
-import { InjectRepository } from '@nestjs/typeorm';
-import { User } from '@models/users/entities/user.entity';
+import { DeepPartial } from 'typeorm';
 import { CreateUserDto } from '../dto/create-user.dto';
 import { PasswordService } from 'src/authentication/services/password.service';
 import { UserRepository } from '../repositories/user.repository';
+import { User } from '@models/entities/user.entity';
 
 @Injectable()
 export class UserService {

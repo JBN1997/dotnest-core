@@ -1,9 +1,12 @@
+import { ProtectedController } from '@common/controllers/protected.controller';
 import { Controller, Get } from '@nestjs/common';
-import { UserService } from '@models/users/services/user.service';
+import { UserService } from './services/user.service';
 
 @Controller('users')
-export class UsersController {
-   constructor(private readonly userService: UserService) {}
+export class UsersController extends ProtectedController {
+   constructor(private readonly userService: UserService) {
+      super();
+   }
 
    @Get()
    async findAll() {

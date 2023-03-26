@@ -1,11 +1,14 @@
-import { Body, Controller, Get, Post, Put, Request, UseGuards } from '@nestjs/common';
-import { LoginDto } from './dto/login.dto';
-import { SigninDto } from './dto/signin.dto';
-import { AuthService } from './services/auth.service';
+import { Body, Controller, Post } from '@nestjs/common';
+import { PublicController } from '@common/controllers/public.controller';
+import { LoginDto } from '@authentication/dto/login.dto';
+import { SigninDto } from '@authentication/dto/signin.dto';
+import { AuthService } from '@authentication/services/auth.service';
 
 @Controller('auth')
-export class AuthController {
-   constructor(private readonly authService: AuthService) {}
+export class AuthController extends PublicController {
+   constructor(private readonly authService: AuthService) {
+      super();
+   }
 
    @Post('login')
    async login(@Body() dto: LoginDto): Promise<{ access_token: string }> {

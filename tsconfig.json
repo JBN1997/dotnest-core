@@ -14,9 +14,11 @@
       "@server": ["src/server"],
       "@app/*": ["src/app.*"],
       "@config/*": ["src/config/*"],
-      "@models/users/*": ["src/models/users/*"],
+      "@common/*": ["src/common/*"],
+      "@models/*": ["src/models/users/*"],
       "@exceptions/*": ["src/template/exceptions/*"],
       "@jobs/*": ["src/jobs/*"],
+      "@authentication/*": ["src/authentication/*"]
     },
     "incremental": true,
     "skipLibCheck": true,

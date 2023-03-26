@@ -1,5 +1,5 @@
-import { User } from '@models/users/entities/user.entity';
-import { UserService } from '@models/users/services/user.service';
+import { User } from '@models/entities/user.entity';
+import { UserService } from '@models/services/user.service';
 import { Injectable, UnauthorizedException } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { LoginDto } from '../dto/login.dto';
@@ -16,8 +16,10 @@ export class AuthService {
 
    async validateUser(username: string, pass: string): Promise<User> {
       const user = await this.userService.findByUsername(username);
+
       if (!(await this.passwordService.comparePasswords(pass, user.password)))
          throw new UnauthorizedException('Invalid credentials');
+
       return user;
    }
 
