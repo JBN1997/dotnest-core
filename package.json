@@ -29,6 +29,7 @@
     "@nestjs/typeorm": "^9.0.1",
     "bcryptjs": "^2.4.3",
     "dotenv": "^16.0.3",
+    "linqts": "^1.14.4",
     "mysql": "^2.18.1",
     "passport": "^0.6.0",
     "passport-jwt": "^4.0.1",
