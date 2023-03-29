@@ -4,13 +4,13 @@ import { SnapshotEntity } from '@common/entities/snapshot/snapshot.entity';
 
 export abstract class MainEntity<
    TEntity extends MainEntity<TEntity, TSnapshotEntity, TLogEntity>,
-   TSnapshotEntity extends SnapshotEntity<TEntity, TSnapshotEntity,TLogEntity>,
-   TLogEntity extends LogEntity<TEntity, TSnapshotEntity, TLogEntity>
+   TSnapshotEntity extends SnapshotEntity<TEntity, TSnapshotEntity, TLogEntity>,
+   TLogEntity extends LogEntity<TEntity, TSnapshotEntity, TLogEntity>,
 > extends CoreEntity {
    abstract lastVersion: TSnapshotEntity;
    abstract versions: TSnapshotEntity[];
    abstract logs: TLogEntity[];
-   
+
    public requestChange(
       ctor: new () => TSnapshotEntity,
       fn: (version: TSnapshotEntity) => void,
