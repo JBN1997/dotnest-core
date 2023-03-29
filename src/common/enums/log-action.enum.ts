@@ -3,5 +3,5 @@ export enum LogAction {
    Update = 'update',
    Delete = 'delete',
    Restore = 'restore',
-   Import = 'import'
+   Import = 'import',
 }

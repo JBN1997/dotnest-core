@@ -5,7 +5,7 @@ import { MainEntity } from '@common/entities/snapshot/main.entity';
 export abstract class SnapshotEntity<
    TEntity extends MainEntity<TEntity, TSnapshotEntity, TLogEntity>,
    TSnapshotEntity extends SnapshotEntity<TEntity, TSnapshotEntity, TLogEntity>,
-   TLogEntity extends LogEntity<TEntity, TSnapshotEntity, TLogEntity>
+   TLogEntity extends LogEntity<TEntity, TSnapshotEntity, TLogEntity>,
 > extends CoreEntity {
    abstract prevVersion: TSnapshotEntity;
    abstract mainEntity: TEntity;
