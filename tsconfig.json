@@ -18,7 +18,8 @@
       "@models/*": ["src/models/users/*"],
       "@exceptions/*": ["src/template/exceptions/*"],
       "@jobs/*": ["src/jobs/*"],
-      "@authentication/*": ["src/authentication/*"]
+      "@authentication/*": ["src/authentication/*"],
+      "@subscriber/*": ["src/subscriber/*"],
     },
     "incremental": true,
     "skipLibCheck": true,
