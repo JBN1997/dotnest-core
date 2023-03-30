@@ -3529,6 +3529,11 @@ lines-and-columns@^1.1.6:
   resolved "https://registry.npmjs.org/lines-and-columns/-/lines-and-columns-1.2.4.tgz"
   integrity sha512-7ylylesZQ/PV29jhEDl3Ufjo6ZX7gCqJr5F7PKrqc93v7fzSymt1BpwEU8nAUXs8qzzvqhbjhK5QZg6Mt/HkBg==
 
+linqts@^1.14.4:
+  version "1.14.4"
+  resolved "https://registry.yarnpkg.com/linqts/-/linqts-1.14.4.tgz#0aa0f78fc6be073d7db874e0a0480fda5d06db7d"
+  integrity sha512-b5sJjG1ZQ8iLSTJV19jWgMLoQicrQVVRkkQN7B/aboU+cf30lgnhIoGM8vEjqPxZFpryDU78PFpuTnfYNIHMeg==
+
 loader-runner@^4.2.0:
   version "4.3.0"
   resolved "https://registry.npmjs.org/loader-runner/-/loader-runner-4.3.0.tgz"
