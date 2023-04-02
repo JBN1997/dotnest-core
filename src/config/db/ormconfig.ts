@@ -1,3 +1,4 @@
+import { UserLogSubscriber } from '@models/events/log-subscriber.event';
 import { TypeOrmModuleOptions } from '@nestjs/typeorm';
 
 const config: TypeOrmModuleOptions = {
@@ -14,7 +15,7 @@ const config: TypeOrmModuleOptions = {
 
    // entities: [__dirname + '/**/*.entity.{js,ts}'],
    // entities: [User, UserVersion, UserLog],
-   // subscribers: [UserLogSubscriber],
+   subscribers: [UserLogSubscriber],
    // migrations: [__dirname + '/migrations/*.ts'], // caminho personalizado para migrations
 };
 

@@ -14,7 +14,7 @@ export class UserRepository extends BaseRepository<User> {
    }
 
    establishAllRelationships(): UserRepository {
-      this.relations = [];
+      this.relations = ['versions', 'lastVersion', 'logs', 'logs.version'];
       return this;
    }
 }
