@@ -29,6 +29,10 @@ export class UserService {
       return await this.userRepository.getAllAsync();
    }
 
+   async findById(id: string): Promise<User> {
+      return await this.userRepository.getAsync(id);
+   }
+
    async findByUsername(username: string): Promise<User> {
       return await this.userRepository.getByAsync({ username });
    }
@@ -48,7 +52,7 @@ export class UserService {
          version.role = dto.role as UserRole;
       });
 
-      this.userRepository.transaction(async () => {
+      await this.userRepository.transaction(async () => {
          await this.userRepository.saveAsync(user);
          await this.userSnapshotRepository.saveAsync(userVersioned);
       });
@@ -67,7 +71,7 @@ export class UserService {
          version.status = UserStatus.Active;
       });
 
-      this.userRepository.transaction(async () => {
+      await this.userRepository.transaction(async () => {
          await this.userRepository.saveAsync(user);
          await this.userSnapshotRepository.saveAsync(userVersioned);
       });
