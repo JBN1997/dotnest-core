@@ -3,6 +3,8 @@ import { NestFactory } from '@nestjs/core';
 import { AppModule } from '@app/module';
 import { EnvConfigService } from '@config/env/env.service';
 import { HttpExceptionFilter } from 'src/common/exceptions/http.exception';
+import { UserProfile } from '@models/profiles/user.profile';
+import { Mapper } from '@nartc/automapper';
 
 class Server {
    private static instance: Server;
@@ -21,6 +23,8 @@ class Server {
    }
 
    private async initializateNestApplication() {
+      this.addProfiles();
+
       await Promise.all([
          await this.createAppModule(),
          await this.configureAppModule(),
@@ -40,6 +44,10 @@ class Server {
       const envConfigService = this.app.get(EnvConfigService);
       await this.app.listen(envConfigService.port);
       this.logger.debug(`Application is running on: ${await this.app.getUrl()}`);
+   }
+
+   private addProfiles() {
+      Mapper.addProfile(UserProfile);
    }
 }
 

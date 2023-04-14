@@ -3,6 +3,7 @@ import { PublicController } from '@common/controllers/public.controller';
 import { LoginDto } from '@authentication/dto/login.dto';
 import { SigninDto } from '@authentication/dto/signin.dto';
 import { AuthService } from '@authentication/services/auth.service';
+import { AccessToken } from '@authentication/interfaces/access-token.interface';
 
 @Controller('auth')
 export class AuthController extends PublicController {
@@ -11,12 +12,12 @@ export class AuthController extends PublicController {
    }
 
    @Post('login')
-   async login(@Body() dto: LoginDto): Promise<{ access_token: string }> {
+   async login(@Body() dto: LoginDto): Promise<AccessToken> {
       return await this.authService.login(dto);
    }
 
    @Post('signin')
-   async singIn(@Body() dto: SigninDto): Promise<{ access_token: string }> {
+   async singIn(@Body() dto: SigninDto): Promise<AccessToken> {
       return await this.authService.singin(dto);
    }
 }

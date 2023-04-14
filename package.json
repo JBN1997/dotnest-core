@@ -20,6 +20,7 @@
     "test:e2e": "jest --config ./jest-e2e.json"
   },
   "dependencies": {
+    "@nartc/automapper": "^7.0.4",
     "@nestjs/common": "^9.0.0",
     "@nestjs/config": "^2.3.1",
     "@nestjs/core": "^9.0.0",
@@ -27,6 +28,7 @@
     "@nestjs/passport": "^9.0.3",
     "@nestjs/platform-express": "^9.0.0",
     "@nestjs/platform-socket.io": "^9.3.12",
+    "@nestjs/swagger": "^6.2.1",
     "@nestjs/typeorm": "^9.0.1",
     "@nestjs/websockets": "^9.3.12",
     "@types/socket.io": "^3.0.2",

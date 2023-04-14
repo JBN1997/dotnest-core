@@ -1,6 +1,7 @@
 import { Injectable, NestMiddleware } from '@nestjs/common';
 import { Request, Response, NextFunction } from 'express';
 import { JwtService } from '@nestjs/jwt';
+import { UserPayload } from './interfaces/user-payload.interface';
 
 @Injectable()
 export class AuthMiddleware implements NestMiddleware {
@@ -16,8 +17,12 @@ export class AuthMiddleware implements NestMiddleware {
 
       try {
          const token = authHeader.split(' ')[1];
-         const decodedToken = this.jwtService.verify(token, { secret: process.env.JWT_SECRET_KEY });
+         const decodedToken: UserPayload = this.jwtService.verify(token, {
+            secret: process.env.JWT_SECRET_KEY,
+         });
+
          req['user'] = decodedToken;
+
          next();
       } catch (e) {
          return res.status(401).send({ message: 'Unauthorized' });
