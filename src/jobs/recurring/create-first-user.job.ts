@@ -1,7 +1,7 @@
+import { CreateUserDto } from '@models/dto/create-user.dto';
+import { UserService } from '@models/services/user.service';
 import { Injectable, OnApplicationBootstrap } from '@nestjs/common';
 import { Logger } from '@nestjs/common';
-import { CreateUserDto } from '@models/users/dto/create-user.dto';
-import { UserService } from '@models/users/services/user.service';
 
 @Injectable()
 export class CreateUserJob implements OnApplicationBootstrap {

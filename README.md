@@ -56,8 +56,8 @@ $ yarn run format
 
 ```
 src\
- |--authentication     # Secure identification and verification of user's access
- |--common             # Commonly used by other modules
+ |--authentication\    # Secure identification and verification of user's access
+ |--common\            # Commonly used by other modules
  |--config\            # Environment variables and configuration related things
  |--controllers\       # Route controllers (controller layer)
  |--docs\              # Swagger files
@@ -65,11 +65,11 @@ src\
  |--middlewares\       # Custom middlewares
  |--models\            # Models (data layer)
      |--entity\        # Entity domain module
-         |--repository # Persistent layer
-         |--dto        # Data transfer object
-         |--service    # Business logic (service layer)
-         |--controller # Routes - data flow
-         |--profile    # Mapping between source and destination objects  
+         |--repository\# Persistent layer
+         |--dto\       # Data transfer object
+         |--service\   # Business logic (service layer)
+         |--controller\# Routes - data flow
+         |--profile\   # Mapping between source and destination objects  
  |--utils\             # Utility classes and functions
  |--validations\       # Request data validation schemas
  |--jobs\              # Queue consumers/providers and recurring/scheduled

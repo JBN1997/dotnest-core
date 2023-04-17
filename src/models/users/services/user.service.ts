@@ -1,17 +1,25 @@
 import { Injectable } from '@nestjs/common';
-import { DeepPartial, Repository } from 'typeorm';
-import { InjectRepository } from '@nestjs/typeorm';
-import { User } from '@models/users/entities/user.entity';
+import { DeepPartial, EntityNotFoundError } from 'typeorm';
 import { CreateUserDto } from '../dto/create-user.dto';
 import { PasswordService } from 'src/authentication/services/password.service';
 import { UserRepository } from '../repositories/user.repository';
+import { User } from '@models/entities/user.entity';
+import { UserSnapshot } from '@models/entities/user-snapshot.entity';
+import { UserRole } from '@models/enums/role.enum';
+import { UserStatus } from '@models/enums/status.enum';
+import { UserSnapshotRepository } from '@models/repositories/user-snapshot.repository';
+import { UpdateUserDto } from '@models/dto/update-user.dto';
 
 @Injectable()
 export class UserService {
    constructor(
       protected readonly userRepository: UserRepository,
+      protected readonly userSnapshotRepository: UserSnapshotRepository,
       protected readonly passwordService: PasswordService,
-   ) {}
+   ) {
+      userRepository.establishAllRelationships();
+      userSnapshotRepository.establishAllRelationships();
+   }
 
    async count(): Promise<number> {
       return await this.userRepository.countAsync();
@@ -21,17 +29,53 @@ export class UserService {
       return await this.userRepository.getAllAsync();
    }
 
+   async findById(id: string): Promise<User> {
+      return await this.userRepository.getAsync(id);
+   }
+
    async findByUsername(username: string): Promise<User> {
       return await this.userRepository.getByAsync({ username });
    }
 
    async createUser(dto: DeepPartial<CreateUserDto>): Promise<User> {
-      const hashedPassword = await this.passwordService.hashPassword(dto.password);
-      const user = await this.userRepository.saveAsync({
-         username: dto.username,
-         email: dto.email,
-         password: hashedPassword,
+      const user = this.userRepository.create();
+
+      const hashedPass = await this.passwordService.hashPassword(dto.password);
+      user.setPassword(hashedPass);
+      user.setUsername(dto.username);
+
+      await this.userRepository.createEntityAsync(user);
+
+      const userVersioned = user.requestChange(UserSnapshot, (version) => {
+         version.name = dto.name;
+         version.email = dto.email;
+         version.role = dto.role as UserRole;
       });
+
+      await this.userRepository.transaction(async () => {
+         await this.userRepository.saveAsync(user);
+         await this.userSnapshotRepository.saveAsync(userVersioned);
+      });
+
+      return user;
+   }
+
+   async updateUser(dto: DeepPartial<UpdateUserDto>): Promise<User> {
+      const user = await this.userRepository.getAsync(dto.id);
+
+      if (!user) throw new EntityNotFoundError(User, {});
+
+      const userVersioned = user.requestChange(UserSnapshot, (version) => {
+         version.name = dto.name;
+         version.email = dto.email;
+         version.status = UserStatus.Active;
+      });
+
+      await this.userRepository.transaction(async () => {
+         await this.userRepository.saveAsync(user);
+         await this.userSnapshotRepository.saveAsync(userVersioned);
+      });
+
       return user;
    }
 }
