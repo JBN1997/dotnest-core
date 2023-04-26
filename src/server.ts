@@ -35,11 +35,20 @@ class Server {
    }
 
    private async createAppModule() {
-      this.app = await NestFactory.create(AppModule);
+      this.app = await NestFactory.create(AppModule, { bodyParser: true });
    }
 
    private configureAppModule() {
       this.app.useGlobalFilters(new HttpExceptionFilter());
+      this.app.enableCors({
+         allowedHeaders: [
+            'Origin',
+            'X-Requested-With',
+            'Content-Type',
+            'Accept',
+            'Authorization'
+         ],
+      });
       this.app.useLogger([
          this.app.get(ErrorLogger),
          this.app.get(WarnLogger)
