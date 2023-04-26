@@ -1,12 +1,13 @@
 import { MiddlewareConsumer, Module, NestModule } from '@nestjs/common';
 import { ConfigModule } from '@config/config.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import config from '@config/db/ormconfig';
+import { UsersModule } from '@models/users/users.module';
 import { AuthModule } from '@authentication/auth.module';
 import { JobsModule } from '@jobs/job.module';
+import { LoggerModule } from '@logger/logger.module';
 import { AuthMiddleware } from '@authentication/auth.middleware';
-import { UsersModule } from '@models/users.module';
 import { SubscriberModule } from '@subscriber/subscriber.module';
+import config from '@config/db/ormconfig';
 
 @Module({
    imports: [
@@ -15,8 +16,10 @@ import { SubscriberModule } from '@subscriber/subscriber.module';
       UsersModule,
       AuthModule,
       JobsModule,
+      LoggerModule,
       SubscriberModule
    ],
+   controllers: [],
    providers: [],
 })
 export class AppModule implements NestModule {

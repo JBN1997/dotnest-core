@@ -2,7 +2,9 @@ import { INestApplication, Logger } from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from '@app/module';
 import { EnvConfigService } from '@config/env/env.service';
-import { HttpExceptionFilter } from 'src/common/exceptions/http.exception';
+import { HttpExceptionFilter } from '@common/exceptions/http.exception';
+import { ErrorLogger } from '@logger/error/error.logger';
+import { WarnLogger } from '@logger/warn/warn.logger';
 import { UserProfile } from '@models/profiles/user.profile';
 import { Mapper } from '@nartc/automapper';
 
@@ -39,8 +41,18 @@ class Server {
    private configureAppModule() {
       this.app.useGlobalFilters(new HttpExceptionFilter());
       this.app.enableCors({
-         allowedHeaders: ['Origin', 'X-Requested-With', 'Content-Type', 'Accept', 'Authorization'],
+         allowedHeaders: [
+            'Origin',
+            'X-Requested-With',
+            'Content-Type',
+            'Accept',
+            'Authorization'
+         ],
       });
+      this.app.useLogger([
+         this.app.get(ErrorLogger),
+         this.app.get(WarnLogger)
+      ]);
    }
 
    private async listen() {
