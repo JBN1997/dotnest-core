@@ -2,7 +2,7 @@ import { MiddlewareConsumer, Module, NestModule } from '@nestjs/common';
 import { ConfigModule } from '@config/config.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { UsersModule } from '@models/users/users.module';
-import { AuthModule } from './authentication/auth.module';
+import { AuthModule } from '@authentication/auth.module';
 import { JobsModule } from '@jobs/job.module';
 import { LoggerModule } from '@logger/logger.module';
 import { AuthMiddleware } from '@authentication/auth.middleware';
