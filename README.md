@@ -9,7 +9,7 @@
 
 ## Description
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript's boilerplate project provides a powerful and feature-rich foundation for developers to build upon, allowing them to focus on building their application's unique features rather than spending time on setup and configuration.
+This open-source project based on [Nest](https://github.com/nestjs/nest) Express provides a boilerplate template for fast and clean code development using best architectural standards with unit and integration testing. The project aims to provide a solid foundation for developers to build upon, with a focus on performance, scalability, and maintainability. With NestJS Express as the core framework, developers can benefit from its features, such as dependency injection, middleware support, and modular architecture, to build robust applications. The project also emphasizes the importance of testing by including unit and integration testing, ensuring that the code meets the required standards. Overall, this project offers a strong foundation for building scalable and maintainable applications with clean code and adherence to architectural best practices.
 
 ## Installation
 
