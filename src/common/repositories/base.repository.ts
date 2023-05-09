@@ -104,11 +104,23 @@ export abstract class BaseRepository<T extends CoreEntity> {
       .catch((error) => Promise.reject(error));
    }
 
-   async deleteManyByIdAsync(...ids: string[]): Promise<DeleteResult> {
+   async deleteManyByIdAsync(ids: string[]): Promise<DeleteResult> {
       return await this.repository.delete({ id: In(ids) as any })
       .then(async (result) => {
          if (!result) {
             return Promise.reject(new BadRequestException('Fail to deleteManyByIdAsync'));
+         }
+
+         Promise.resolve(result);
+      })
+      .catch((error) => Promise.reject(error));
+   }
+
+   async deleteByIdAsync(id: string): Promise<DeleteResult> {
+      return await this.repository.delete({ id: id as any })
+      .then(async (result) => {
+         if (!result) {
+            return Promise.reject(new BadRequestException('Fail to deleteByIdAsync'));
          }
 
          Promise.resolve(result);
