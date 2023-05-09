@@ -1,7 +1,7 @@
-import { NotFoundException } from '@nestjs/common';
-import { DeepPartial, EntityManager, In, Repository, SelectQueryBuilder } from 'typeorm';
+import { BadRequestException, NotFoundException } from '@nestjs/common';
+import { DeepPartial, DeleteResult, EntityManager, In, Repository, SelectQueryBuilder } from 'typeorm';
 import { QueryDeepPartialEntity } from 'typeorm/query-builder/QueryPartialEntity';
-import { CoreEntity } from '../entities/base.entity';
+import { CoreEntity } from '@common/entities/base.entity';
 
 export abstract class BaseRepository<T extends CoreEntity> {
    protected relations: string[] = [];
@@ -90,6 +90,30 @@ export abstract class BaseRepository<T extends CoreEntity> {
       return await this.repository.find({
          relations: this.relations,
       });
+   }
+
+   async deleteEntityAsync(entity: T): Promise<T> {
+      return await this.repository.remove(entity)
+      .then(async (result) => Promise.resolve(result))
+      .catch((error) => Promise.reject(error));
+   }
+
+   async deleteManyAsync(...entities: T[]): Promise<T[]> {
+      return await this.repository.remove(entities)
+      .then(async (result) => Promise.resolve(result))
+      .catch((error) => Promise.reject(error));
+   }
+
+   async deleteManyByIdAsync(...ids: string[]): Promise<DeleteResult> {
+      return await this.repository.delete({ id: In(ids) as any })
+      .then(async (result) => {
+         if (!result) {
+            return Promise.reject(new BadRequestException('Fail to deleteManyByIdAsync'));
+         }
+
+         Promise.resolve(result);
+      })
+      .catch((error) => Promise.reject(error));
    }
 
    create(): T {
