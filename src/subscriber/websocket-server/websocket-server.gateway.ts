@@ -19,8 +19,10 @@ export class WebSocketServerGateway implements OnGatewayConnection, OnGatewayDis
       await this.websocketClientService.createWebsocketClient(websocketClient);
    }
 
-   public handleDisconnect(client: Socket) {
-      this.logger.log(`Socket client ${client.id} desconectado`);
+   public async handleDisconnect(client: Socket) {
+      this.logger.log(`[WEBSOCKET-SERVER]: Delete Socket client ${client.id}`);
+
+      await this.websocketClientService.deleteWebsocketClientById(client.id);
    }
 
    @SubscribeMessage('message')
